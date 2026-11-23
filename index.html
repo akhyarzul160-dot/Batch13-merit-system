@@ -233,28 +233,29 @@ footer {
       <span>Record merit additions and deductions</span>
     </div>
 
-    <div class="card menu-item">
+    <div class="card menu-item" onclick="openHistory()">
       History
       <span>View previous records</span>
     </div>
 
-    <div class="card menu-item">
+    <div class="card menu-item" onclick="openReports()">
       Reports
       <span>View class merit reports</span>
     </div>
 
-    <div class="card menu-item">
+    <div class="card menu-item" onclick="openCommittee()">
       Committee
       <span>Committee management</span>
     </div>
   </section>
 
-  <section id="meritEntryPage" style="display:none; padding:20px;">
+  <!-- Merit Entry Page -->
+  <section id="meritEntryPage" style="display:none; padding:20px; background:white; border-radius:13px; border:1px solid #e7e9ef; margin-top:20px;">
     <h2>MERIT ENTRY</h2>
-    <p>Record merit additions and deductions</p>
+    <p style="color:#68738a; font-size:13px; margin-bottom:15px;">Record merit additions and deductions</p>
 
     <label>Observer</label>
-    <select id="observer">
+    <select id="observer" style="width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ddd;">
       <option value="">Select observer</option>
       <option>Amzar Asqalani bin Izwan</option>
       <option>Muhammad Zul Akhyar bin Harun</option>
@@ -271,7 +272,7 @@ footer {
     <br><br>
 
     <label>Class</label>
-    <select id="meritClass">
+    <select id="meritClass" style="width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ddd;">
       <option value="">Select class</option>
       <option>2 IBNU AQIL</option>
       <option>2 IBNU BATUTAH</option>
@@ -283,7 +284,7 @@ footer {
     <br><br>
 
     <label>Reason</label>
-    <select id="meritReason">
+    <select id="meritReason" style="width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ddd;">
       <option value="">Select reason</option>
       <option>Cooperation</option>
       <option>Cleanliness</option>
@@ -298,7 +299,7 @@ footer {
     <br><br>
 
     <label>Merit Type</label>
-    <select id="meritType">
+    <select id="meritType" style="width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ddd;">
       <option value="add">Add (+)</option>
       <option value="deduct">Deduct (-)</option>
     </select>
@@ -306,15 +307,52 @@ footer {
     <br><br>
 
     <label>Points</label>
-    <input id="meritPoints" type="number" min="1" max="5" value="1">
+    <input id="meritPoints" type="number" min="1" max="5" value="1" style="width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ddd;">
 
     <br><br>
 
-    <button type="button" onclick="saveMeritRecord()">
+    <button type="button" onclick="saveMeritRecord()" style="width:100%; padding:12px; background:#D5AE59; border:0; border-radius:8px; font-weight:bold; cursor:pointer;">
       SAVE RECORD
     </button>
     <p id="meritStatus" style="margin-top: 10px; font-weight: bold;"></p>
   </section>
+
+  <!-- History Page -->
+  <section id="historyPage" style="display:none; padding:20px; background:white; border-radius:13px; border:1px solid #e7e9ef; margin-top:20px;">
+    <h2>HISTORY</h2>
+    <p style="color:#68738a; font-size:13px; margin-bottom:20px;">Previous merit & demerit records</p>
+    <div id="historyList" style="display:flex; flex-direction:column; gap:10px;">
+      <p style="color:#68738a; font-size:13px;">Loading records...</p>
+    </div>
+  </section>
+
+  <!-- Reports Page -->
+  <section id="reportsPage" style="display:none; padding:20px; background:white; border-radius:13px; border:1px solid #e7e9ef; margin-top:20px;">
+    <h2>REPORTS</h2>
+    <p style="color:#68738a; font-size:13px; margin-bottom:20px;">Class merit summary reports</p>
+    <div id="reportsList" style="display:flex; flex-direction:column; gap:12px;">
+      <p style="color:#68738a; font-size:13px;">Loading reports...</p>
+    </div>
+  </section>
+
+  <!-- Committee Page -->
+  <section id="committeePage" style="display:none; padding:20px; background:white; border-radius:13px; border:1px solid #e7e9ef; margin-top:20px;">
+    <h2>COMMITTEE</h2>
+    <p style="color:#68738a; font-size:13px; margin-bottom:20px;">List of Batch 13 Committee Members</p>
+    <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; color:#374151;">
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Amzar Asqalani bin Izwan</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Muhammad Zul Akhyar bin Harun</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Muhammad Ihsan Najmi bin Muhammad Saiful</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Muhammad Faheem Asfa bin Mohd Syukri</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Muhammad Ariff bin Hairul Anwar</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Surfina Damia binti Md Saiful Nizam</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Nur Irdina Aisya binti Mohd Azlee</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Nur Falisha binti Mohd Zulhelmi</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Nur Zhalika Samhana binti Mohammad Zubir</div>
+      <div style="padding:10px; background:#f9fafb; border-radius:8px; border:1px solid #e7e9ef;">Adawiyah Alisha binti Abdul Azim</div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -366,6 +404,7 @@ footer {
     border: 0;
     border-radius: 8px;
     font-weight: bold;
+    cursor: pointer;
   }
 </style>
 
@@ -398,7 +437,8 @@ footer {
     addDoc,
     serverTimestamp,
     getDocs,
-    query
+    query,
+    orderBy
   } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -421,7 +461,6 @@ footer {
   document.getElementById("loginButton").addEventListener("click", async () => {
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
-
     errorText.textContent = "";
 
     try {
@@ -439,7 +478,6 @@ footer {
 
     try {
       const userDoc = await getDoc(doc(db, "authorizedUsers", user.uid));
-
       if (userDoc.exists() && userDoc.data().role === "committee") {
         loginScreen.style.display = "none";
         updateDashboardStats();
@@ -455,20 +493,82 @@ footer {
     }
   });
 
+  function hideAllPages() {
+    document.getElementById("meritEntryPage").style.display = "none";
+    document.getElementById("historyPage").style.display = "none";
+    document.getElementById("reportsPage").style.display = "none";
+    document.getElementById("committeePage").style.display = "none";
+  }
+
   window.openMeritEntry = function() {
+    hideAllPages();
     const page = document.getElementById("meritEntryPage");
     page.style.display = "block";
     page.scrollIntoView({ behavior: "smooth" });
   };
 
-  async function updateDashboardStats() {
+  window.openHistory = async function() {
+    hideAllPages();
+    const page = document.getElementById("historyPage");
+    page.style.display = "block";
+    page.scrollIntoView({ behavior: "smooth" });
+
+    const historyList = document.getElementById("historyList");
+    historyList.innerHTML = "<p style='color:#68738a; font-size:13px;'>Memuatkan sejarah rekod...</p>";
+
+    try {
+      const q = query(collection(db, "meritRecords"), orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        historyList.innerHTML = "<p style='color:#68738a; font-size:13px;'>Tiada rekod ditemui.</p>";
+        return;
+      }
+
+      let html = "";
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const isAdd = data.type === "add";
+        const badgeColor = isAdd ? "#16a34a" : "#dc2626";
+        const sign = isAdd ? "+" : "-";
+        
+        let dateStr = "Baru sahaja";
+        if (data.timestamp && data.timestamp.toDate) {
+          dateStr = data.timestamp.toDate().toLocaleString('ms-MY', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+        }
+
+        html += `
+          <div style="padding:14px; border:1px solid #e7e9ef; border-left:4px solid ${badgeColor}; border-radius:10px; background:#f9fafb;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong style="font-size:14px; color:#101D38;">${data.class}</strong>
+              <span style="font-weight:bold; font-size:15px; color:${badgeColor};">${sign}${data.points} pts</span>
+            </div>
+            <p style="font-size:13px; color:#374151; margin-top:5px;"><strong>Sebab:</strong> ${data.reason}</p>
+            <p style="font-size:12px; color:#68738a; margin-top:4px;">Oleh: ${data.observer} ·${dateStr}</p>
+          </div>
+        `;
+      });
+      historyList.innerHTML = html;
+    } catch (error) {
+      historyList.innerHTML = "<p style='color:red; font-size:13px;'>Gagal memuatkan rekod.</p>";
+    }
+  };
+
+  window.openReports = async function() {
+    hideAllPages();
+    const page = document.getElementById("reportsPage");
+    page.style.display = "block";
+    page.scrollIntoView({ behavior: "smooth" });
+
+    const reportsList = document.getElementById("reportsList");
+    reportsList.innerHTML = "<p style='color:#68738a; font-size:13px;'>Menjana laporan...</p>";
+
     try {
       const q = query(collection(db, "meritRecords"));
       const querySnapshot = await getDocs(q);
-
-      let totalRecords = 0;
-      let totalAdded = 0;
-      let totalDeducted = 0;
 
       const classTotals = {
         "2 IBNU AQIL": 0,
@@ -480,82 +580,17 @@ footer {
 
       querySnapshot.forEach((docSnap) => {
         const data = docSnap.data();
-        totalRecords++;
-        
         const pts = Number(data.points) || 0;
-        if (data.type === "add") {
-          totalAdded += pts;
-          if (classTotals[data.class] !== undefined) {
+        if (classTotals[data.class] !== undefined) {
+          if (data.type === "add") {
             classTotals[data.class] += pts;
-          }
-        } else {
-          totalDeducted += pts;
-          if (classTotals[data.class] !== undefined) {
+          } else {
             classTotals[data.class] -= pts;
           }
         }
       });
 
-      document.querySelectorAll(".stat-number")[1].innerText = String(totalRecords).padStart(2, '0');
-      document.querySelectorAll(".stat-number")[2].innerText = String(totalAdded).padStart(2, '0');
-      document.querySelectorAll(".stat-number")[3].innerText = String(totalDeducted).padStart(2, '0');
-
-      document.getElementById("merit-2-ibnu-aqil").innerText = classTotals["2 IBNU AQIL"];
-      document.getElementById("merit-2-ibnu-batutah").innerText = classTotals["2 IBNU BATUTAH"];
-      document.getElementById("merit-2-ibnu-khaldun").innerText = classTotals["2 IBNU KHALDUN"];
-      document.getElementById("merit-2-ibnu-rusyd").innerText = classTotals["2 IBNU RUSYD"];
-      document.getElementById("merit-2-ibnu-sina").innerText = classTotals["2 IBNU SINA"];
-
-    } catch (error) {
-      console.error("Ralat mengemas kini dashboard:", error);
-    }
-  }
-
-  window.saveMeritRecord = async function() {
-    const observer = document.getElementById("observer").value;
-    const meritClass = document.getElementById("meritClass").value;
-    const reason = document.getElementById("meritReason").value;
-    const type = document.getElementById("meritType").value;
-    const points = Number(document.getElementById("meritPoints").value);
-    const statusText = document.getElementById("meritStatus");
-
-    if (!observer || !meritClass || !reason || !points) {
-      statusText.style.color = "red";
-      statusText.innerText = "Sila lengkapkan semua maklumat terlebih dahulu!";
-      return;
-    }
-
-    statusText.style.color = "blue";
-    statusText.innerText = "Menyimpan rekod...";
-
-    try {
-      await addDoc(collection(db, "meritRecords"), {
-        observer: observer,
-        class: meritClass,
-        reason: reason,
-        type: type,
-        points: points,
-        timestamp: serverTimestamp()
-      });
-
-      statusText.style.color = "green";
-      statusText.innerText = "Rekod merit berjaya disimpan!";
-      
-      await updateDashboardStats();
-      
-      document.getElementById("observer").value = "";
-      document.getElementById("meritClass").value = "";
-      document.getElementById("meritReason").value = "";
-      document.getElementById("meritType").value = "add";
-      document.getElementById("meritPoints").value = "1";
-      
-    } catch (error) {
-      console.error("Ralat menyimpan rekod:", error);
-      statusText.style.color = "red";
-      statusText.innerText = "Gagal menyimpan: " + error.message;
-    }
-  };
-</script>
-
-</body>
-</html>
+      let html = "";
+      for (const [className, total] of Object.entries(classTotals)) {
+        html += `
+          <div style="padding:15px; border:1px solid #e7e9ef; border-left:4px solid #D5AE59; border-radius:10px; background:#f9fafb; display:flex
