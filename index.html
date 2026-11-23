@@ -462,6 +462,51 @@ const firebaseConfig = {
     page.style.display = "block";
     page.scrollIntoView({ behavior: "smooth" });
   };
+    // Fungsi untuk simpan rekod merit ke Firestore
+  window.saveMeritRecord = async function() {
+    const observer = document.getElementById("observer").value;
+    const meritClass = document.getElementById("meritClass").value;
+    const reason = document.getElementById("meritReason").value;
+    // Pastikan ID input poin/markah sama dengan yang ada dalam HTML awak (contoh: meritPoints)
+    const pointsInput = document.getElementById("meritPoints"); 
+    const points = pointsInput ? Number(pointsInput.value) : 0;
+    const statusText = document.getElementById("meritStatus");
+
+    // Semak jika ada ruang yang belum diisi
+    if (!observer || !meritClass || !reason || !points) {
+      statusText.style.color = "red";
+      statusText.innerText = "Sila lengkapkan semua maklumat terlebih dahulu!";
+      return;
+    }
+
+    statusText.style.color = "blue";
+    statusText.innerText = "Menyimpan rekod...";
+
+    try {
+      // Simpan ke koleksi 'meritRecords' dalam Firestore
+      await addDoc(collection(db, "meritRecords"), {
+        observer: observer,
+        class: meritClass,
+        reason: reason,
+        points: points,
+        timestamp: serverTimestamp()
+      });
+
+      statusText.style.color = "green";
+      statusText.innerText = "Rekod merit berjaya disimpan!";
+      
+      // Kosongkan semula borang selepas berjaya simpan
+      document.getElementById("observer").value = "";
+      document.getElementById("meritClass").value = "";
+      document.getElementById("meritReason").value = "";
+      if (pointsInput) pointsInput.value = "";
+      
+    } catch (error) {
+      console.error("Ralat menyimpan rekod:", error);
+      statusText.style.color = "red";
+      statusText.innerText = "Gagal menyimpan: " + error.message;
+    }
+  };
 </script>
 </body>
 </html>
