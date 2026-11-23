@@ -201,35 +201,34 @@ footer {
   <section class="classes">
     <div class="card class-card">
       <h3>2 IBNU AQIL</h3>
-      <p>Total Merit: 0</p>
+      <p>Total Merit: <span id="merit-2-ibnu-aqil">0</span></p>
     </div>
 
     <div class="card class-card">
       <h3>2 IBNU BATUTAH</h3>
-      <p>Total Merit: 0</p>
+      <p>Total Merit: <span id="merit-2-ibnu-batutah">0</span></p>
     </div>
 
     <div class="card class-card">
       <h3>2 IBNU KHALDUN</h3>
-      <p>Total Merit: 0</p>
+      <p>Total Merit: <span id="merit-2-ibnu-khaldun">0</span></p>
     </div>
 
     <div class="card class-card">
       <h3>2 IBNU RUSYD</h3>
-      <p>Total Merit: 0</p>
+      <p>Total Merit: <span id="merit-2-ibnu-rusyd">0</span></p>
     </div>
 
     <div class="card class-card">
       <h3>2 IBNU SINA</h3>
-      <p>Total Merit: 0</p>
+      <p>Total Merit: <span id="merit-2-ibnu-sina">0</span></p>
     </div>
   </section>
 
   <h3 class="section-title">System Navigation</h3>
 
   <section class="menu">
-    <div class="card menu-item"
-      onclick="openMeritEntry()">
+    <div class="card menu-item" onclick="openMeritEntry()">
       Merit Entry
       <span>Record merit additions and deductions</span>
     </div>
@@ -249,72 +248,73 @@ footer {
       <span>Committee management</span>
     </div>
   </section>
-<section id="meritEntryPage" style="display:none; padding:20px;">
-  <h2>MERIT ENTRY</h2>
-  <p>Record merit additions and deductions</p>
 
-  <label>Observer</label>
-  <select id="observer">
-    <option value="">Select observer</option>
-    <option>Amzar Asqalani bin Izwan</option>
-    <option>Muhammad Zul Akhyar bin Harun</option>
-    <option>Muhammad Ihsan Najmi bin Muhammad Saiful</option>
-    <option>Muhammad Faheem Asfa bin Mohd Syukri</option>
-    <option>Muhammad Ariff bin Hairul Anwar</option>
-    <option>Surfina Damia binti Md Saiful Nizam</option>
-    <option>Nur Irdina Aisya binti Mohd Azlee</option>
-    <option>Nur Falisha binti Mohd Zulhelmi</option>
-    <option>Nur Zhalika Samhana binti Mohammad Zubir</option>
-    <option>Adawiyah Alisha binti Abdul Azim</option>
-  </select>
+  <section id="meritEntryPage" style="display:none; padding:20px;">
+    <h2>MERIT ENTRY</h2>
+    <p>Record merit additions and deductions</p>
 
-  <br><br>
+    <label>Observer</label>
+    <select id="observer">
+      <option value="">Select observer</option>
+      <option>Amzar Asqalani bin Izwan</option>
+      <option>Muhammad Zul Akhyar bin Harun</option>
+      <option>Muhammad Ihsan Najmi bin Muhammad Saiful</option>
+      <option>Muhammad Faheem Asfa bin Mohd Syukri</option>
+      <option>Muhammad Ariff bin Hairul Anwar</option>
+      <option>Surfina Damia binti Md Saiful Nizam</option>
+      <option>Nur Irdina Aisya binti Mohd Azlee</option>
+      <option>Nur Falisha binti Mohd Zulhelmi</option>
+      <option>Nur Zhalika Samhana binti Mohammad Zubir</option>
+      <option>Adawiyah Alisha binti Abdul Azim</option>
+    </select>
 
-  <label>Class</label>
-  <select id="meritClass">
-    <option value="">Select class</option>
-    <option>2 IBNU AQIL</option>
-    <option>2 IBNU BATUTAH</option>
-    <option>2 IBNU KHALDUN</option>
-    <option>2 IBNU RUSYD</option>
-    <option>2 IBNU SINA</option>
-  </select>
+    <br><br>
 
-  <br><br>
+    <label>Class</label>
+    <select id="meritClass">
+      <option value="">Select class</option>
+      <option>2 IBNU AQIL</option>
+      <option>2 IBNU BATUTAH</option>
+      <option>2 IBNU KHALDUN</option>
+      <option>2 IBNU RUSYD</option>
+      <option>2 IBNU SINA</option>
+    </select>
 
-  <label>Reason</label>
-  <select id="meritReason">
-    <option value="">Select reason</option>
-    <option>Cooperation</option>
-    <option>Cleanliness</option>
-    <option>Respect</option>
-    <option>Helping others</option>
-    <option>Following rules</option>
-    <option>Disrupting others</option>
-    <option>Impolite language</option>
-    <option value="Other">Other</option>
-  </select>
+    <br><br>
 
-  <br><br>
+    <label>Reason</label>
+    <select id="meritReason">
+      <option value="">Select reason</option>
+      <option>Cooperation</option>
+      <option>Cleanliness</option>
+      <option>Respect</option>
+      <option>Helping others</option>
+      <option>Following rules</option>
+      <option>Disrupting others</option>
+      <option>Impolite language</option>
+      <option value="Other">Other</option>
+    </select>
 
-  <label>Merit Type</label>
-  <select id="meritType">
-    <option value="add">Add (+)</option>
-    <option value="deduct">Deduct (-)</option>
-  </select>
+    <br><br>
 
-  <br><br>
+    <label>Merit Type</label>
+    <select id="meritType">
+      <option value="add">Add (+)</option>
+      <option value="deduct">Deduct (-)</option>
+    </select>
 
-  <label>Points</label>
-  <input id="meritPoints" type="number" min="1" max="5" value="1">
+    <br><br>
 
-  <br><br>
+    <label>Points</label>
+    <input id="meritPoints" type="number" min="1" max="5" value="1">
 
-  <button type="button" onclick="saveMeritRecord()">
-    SAVE RECORD
-  </button>
-  <p id="meritStatus" style="margin-top: 10px; font-weight: bold;"></p>
-</section>
+    <br><br>
+
+    <button type="button" onclick="saveMeritRecord()">
+      SAVE RECORD
+    </button>
+    <p id="meritStatus" style="margin-top: 10px; font-weight: bold;"></p>
+  </section>
 </main>
 
 <footer>
@@ -322,6 +322,7 @@ footer {
   <br><br>
   Prototype Version 1.0
 </footer>
+
 <style>
   #loginScreen {
     position: fixed;
@@ -374,47 +375,42 @@ footer {
     <p>MERIT MANAGEMENT SYSTEM 2027</p>
     <h3>Committee Login</h3>
 
-    <input id="loginEmail" type="email"
-      placeholder="Email address">
-
-    <input id="loginPassword" type="password"
-      placeholder="Password">
-
+    <input id="loginEmail" type="email" placeholder="Email address">
+    <input id="loginPassword" type="password" placeholder="Password">
     <button id="loginButton">LOGIN</button>
-
     <p id="loginError"></p>
   </div>
 </div>
-  <script type="module">
-  import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
   import {
     getAuth,
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged
-  } from
-    "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-    import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    addDoc,
+    serverTimestamp,
+    getDocs,
+    query
+  } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAuF7tEf10QrGww7UOmcshoy0dJkVy_D4Y",
-  authDomain: "batch13-merit-system.firebaseapp.com",
-  projectId: "batch13-merit-system",
-  storageBucket: "batch13-merit-system.firebasestorage.app",
-  messagingSenderId: "1050033518876",
-  appId: "1:1050033518876:web:f781042d9747219453e2d9",
-  measurementId: "G-E6D68YT4M6"
-};
-  
+  const firebaseConfig = {
+    apiKey: "AIzaSyAuF7tEf10QrGww7UOmcshoy0dJkVy_D4Y",
+    authDomain: "batch13-merit-system.firebaseapp.com",
+    projectId: "batch13-merit-system",
+    storageBucket: "batch13-merit-system.firebasestorage.app",
+    messagingSenderId: "1050033518876",
+    appId: "1:1050033518876:web:f781042d9747219453e2d9",
+    measurementId: "G-E6D68YT4M6"
+  };
+
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -442,13 +438,11 @@ const firebaseConfig = {
     }
 
     try {
-      const userDoc = await getDoc(
-        doc(db, "authorizedUsers", user.uid)
-      );
+      const userDoc = await getDoc(doc(db, "authorizedUsers", user.uid));
 
       if (userDoc.exists() && userDoc.data().role === "committee") {
         loginScreen.style.display = "none";
-        updateDashboardStats(); // Muat turun data dashboard bila berjaya masuk
+        updateDashboardStats();
       } else {
         await signOut(auth);
         loginScreen.style.display = "flex";
@@ -461,14 +455,12 @@ const firebaseConfig = {
     }
   });
 
-  // Buka borang Merit Entry
   window.openMeritEntry = function() {
     const page = document.getElementById("meritEntryPage");
     page.style.display = "block";
     page.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Fungsi untuk kemas kini data di Dashboard
   async function updateDashboardStats() {
     try {
       const q = query(collection(db, "meritRecords"));
@@ -504,12 +496,10 @@ const firebaseConfig = {
         }
       });
 
-      // Paparkan pada kad statistik overview
       document.querySelectorAll(".stat-number")[1].innerText = String(totalRecords).padStart(2, '0');
       document.querySelectorAll(".stat-number")[2].innerText = String(totalAdded).padStart(2, '0');
       document.querySelectorAll(".stat-number")[3].innerText = String(totalDeducted).padStart(2, '0');
 
-      // Paparkan pada kad kelas masing-masing
       document.getElementById("merit-2-ibnu-aqil").innerText = classTotals["2 IBNU AQIL"];
       document.getElementById("merit-2-ibnu-batutah").innerText = classTotals["2 IBNU BATUTAH"];
       document.getElementById("merit-2-ibnu-khaldun").innerText = classTotals["2 IBNU KHALDUN"];
@@ -521,7 +511,6 @@ const firebaseConfig = {
     }
   }
 
-  // Fungsi untuk simpan rekod merit ke Firestore
   window.saveMeritRecord = async function() {
     const observer = document.getElementById("observer").value;
     const meritClass = document.getElementById("meritClass").value;
@@ -552,10 +541,8 @@ const firebaseConfig = {
       statusText.style.color = "green";
       statusText.innerText = "Rekod merit berjaya disimpan!";
       
-      // Kemas kini terus paparan dashboard lepas simpan
       await updateDashboardStats();
       
-      // Kosongkan semula borang
       document.getElementById("observer").value = "";
       document.getElementById("meritClass").value = "";
       document.getElementById("meritReason").value = "";
@@ -568,7 +555,7 @@ const firebaseConfig = {
       statusText.innerText = "Gagal menyimpan: " + error.message;
     }
   };
-      
 </script>
+
 </body>
 </html>
