@@ -256,6 +256,114 @@ footer {
   <br><br>
   Prototype Version 1.0
 </footer>
+<style>
+  #loginScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #101D38;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
 
+  .login-card {
+    background: white;
+    width: 100%;
+    max-width: 380px;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+  }
+
+  .login-card h2 {
+    color: #101D38;
+  }
+
+  .login-card input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    margin: 9px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .login-card button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    background: #D5AE59;
+    border: 0;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+</style>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <h2>BATCH 13</h2>
+    <p>MERIT MANAGEMENT SYSTEM 2027</p>
+    <h3>Committee Login</h3>
+
+    <input id="loginEmail" type="email"
+      placeholder="Email address">
+
+    <input id="loginPassword" type="password"
+      placeholder="Password">
+
+    <button id="loginButton">LOGIN</button>
+
+    <p id="loginError"></p>
+  </div>
+</div>
+  <script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from
+    "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAuF7tEf10QrGww7UOmcshoy0dJkVy_D4Y",
+  authDomain: "batch13-merit-system.firebaseapp.com",
+  projectId: "batch13-merit-system",
+  storageBucket: "batch13-merit-system.firebasestorage.app",
+  messagingSenderId: "1050033518876",
+  appId: "1:1050033518876:web:f781042d9747219453e2d9",
+  measurementId: "G-E6D68YT4M6"
+};
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginScreen = document.getElementById("loginScreen");
+  const errorText = document.getElementById("loginError");
+
+  document.getElementById("loginButton").addEventListener("click", async () => {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    errorText.textContent = "";
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      errorText.textContent = "Login gagal. Semak email dan password.";
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    loginScreen.style.display = user ? "none" : "flex";
+  });
+</script>
+  
 </body>
 </html>
