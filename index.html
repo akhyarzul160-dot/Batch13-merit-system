@@ -436,37 +436,92 @@ const firebaseConfig = {
   });
 
   onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    loginScreen.style.display = "flex";
-    return;
-  }
+    if (!user) {
+      loginScreen.style.display = "flex";
+      return;
+    }
 
-  try {
-    const userDoc = await getDoc(
-      doc(db, "authorizedUsers", user.uid)
-    );
+    try {
+      const userDoc = await getDoc(
+        doc(db, "authorizedUsers", user.uid)
+      );
 
-    if (userDoc.exists() && userDoc.data().role === "committee") {
-      loginScreen.style.display = "none";
-    } else {
+      if (userDoc.exists() && userDoc.data().role === "committee") {
+        loginScreen.style.display = "none";
+        updateDashboardStats(); // Muat turun data dashboard bila berjaya masuk
+      } else {
+        await signOut(auth);
+        loginScreen.style.display = "flex";
+        errorText.textContent = "Akaun ini belum diberi kebenaran.";
+      }
+    } catch (error) {
       await signOut(auth);
       loginScreen.style.display = "flex";
-      errorText.textContent = "Akaun ini belum diberi kebenaran.";
+      errorText.textContent = "Tidak dapat mengesahkan akses. Cuba lagi.";
     }
-  } catch (error) {
-    await signOut(auth);
-    loginScreen.style.display = "flex";
-    errorText.textContent = "Tidak dapat mengesahkan akses. Cuba lagi.";
-  }
-});
+  });
 
-  // Daftarkan fungsi openMeritEntry di sini supaya boleh dibaca dari HTML
+  // Buka borang Merit Entry
   window.openMeritEntry = function() {
     const page = document.getElementById("meritEntryPage");
     page.style.display = "block";
     page.scrollIntoView({ behavior: "smooth" });
   };
-    // Fungsi untuk simpan rekod merit ke Firestore
+
+  // Fungsi untuk kemas kini data di Dashboard
+  async function updateDashboardStats() {
+    try {
+      const q = query(collection(db, "meritRecords"));
+      const querySnapshot = await getDocs(q);
+
+      let totalRecords = 0;
+      let totalAdded = 0;
+      let totalDeducted = 0;
+
+      const classTotals = {
+        "2 IBNU AQIL": 0,
+        "2 IBNU BATUTAH": 0,
+        "2 IBNU KHALDUN": 0,
+        "2 IBNU RUSYD": 0,
+        "2 IBNU SINA": 0
+      };
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        totalRecords++;
+        
+        const pts = Number(data.points) || 0;
+        if (data.type === "add") {
+          totalAdded += pts;
+          if (classTotals[data.class] !== undefined) {
+            classTotals[data.class] += pts;
+          }
+        } else {
+          totalDeducted += pts;
+          if (classTotals[data.class] !== undefined) {
+            classTotals[data.class] -= pts;
+          }
+        }
+      });
+
+      // Paparkan pada kad statistik overview
+      document.querySelectorAll(".stat-number")[1].innerText = String(totalRecords).padStart(2, '0');
+      document.querySelectorAll(".stat-number")[2].innerText = String(totalAdded).padStart(2, '0');
+      document.querySelectorAll(".stat-number")[3].innerText = String(totalDeducted).padStart(2, '0');
+
+      // Paparkan pada kad kelas masing-masing
+      document.getElementById("merit-2-ibnu-aqil").innerText = classTotals["2 IBNU AQIL"];
+      document.getElementById("merit-2-ibnu-batutah").innerText = classTotals["2 IBNU BATUTAH"];
+      document.getElementById("merit-2-ibnu-khaldun").innerText = classTotals["2 IBNU KHALDUN"];
+      document.getElementById("merit-2-ibnu-rusyd").innerText = classTotals["2 IBNU RUSYD"];
+      document.getElementById("merit-2-ibnu-sina").innerText = classTotals["2 IBNU SINA"];
+
+    } catch (error) {
+      console.error("Ralat mengemas kini dashboard:", error);
+    }
+  }
+
+  // Fungsi untuk simpan rekod merit ke Firestore
   window.saveMeritRecord = async function() {
     const observer = document.getElementById("observer").value;
     const meritClass = document.getElementById("meritClass").value;
@@ -497,7 +552,10 @@ const firebaseConfig = {
       statusText.style.color = "green";
       statusText.innerText = "Rekod merit berjaya disimpan!";
       
-      // Kosongkan semula borang selepas berjaya simpan
+      // Kemas kini terus paparan dashboard lepas simpan
+      await updateDashboardStats();
+      
+      // Kosongkan semula borang
       document.getElementById("observer").value = "";
       document.getElementById("meritClass").value = "";
       document.getElementById("meritReason").value = "";
@@ -510,6 +568,7 @@ const firebaseConfig = {
       statusText.innerText = "Gagal menyimpan: " + error.message;
     }
   };
+      
 </script>
 </body>
 </html>
