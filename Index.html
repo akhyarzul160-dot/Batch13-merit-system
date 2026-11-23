@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch 13 Merit System</title>
+
+<style>
+:root {
+  --navy: #101D38;
+  --gold: #D5AE59;
+  --grey: #F4F5F8;
+  --white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: var(--grey);
+  color: var(--navy);
+}
+
+header {
+  background: var(--navy);
+  color: white;
+  padding: 25px 7%;
+  border-bottom: 4px solid var(--gold);
+}
+
+header h1 {
+  color: var(--gold);
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+
+header p {
+  margin-top: 7px;
+  font-size: 13px;
+  color: #d9deea;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.welcome {
+  margin-bottom: 25px;
+}
+
+.welcome h2 {
+  font-size: 25px;
+}
+
+.welcome p {
+  color: #68738a;
+  margin-top: 7px;
+}
+
+.section-title {
+  margin: 25px 0 15px;
+  font-size: 18px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 13px;
+  border: 1px solid #e7e9ef;
+}
+
+.stat-label {
+  color: #68738a;
+  font-size: 13px;
+}
+
+.stat-number {
+  font-size: 27px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.gold {
+  color: #b58b36;
+}
+
+.classes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 13px;
+}
+
+.class-card {
+  border-left: 4px solid var(--gold);
+}
+
+.class-card h3 {
+  font-size: 15px;
+}
+
+.class-card p {
+  color: #68738a;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.menu-item {
+  text-align: left;
+  color: var(--navy);
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #e7e9ef;
+  background: white;
+}
+
+.menu-item span {
+  display: block;
+  color: #68738a;
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #7a8293;
+  font-size: 12px;
+}
+
+@media (min-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .menu {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>BATCH 13</h1>
+  <p>MERIT MANAGEMENT SYSTEM · 2027</p>
+</header>
+
+<main>
+
+  <section class="welcome">
+    <h2>Dashboard</h2>
+    <p>Welcome to Batch 13 Merit System.</p>
+  </section>
+
+  <h3 class="section-title">System Overview</h3>
+
+  <section class="stats">
+    <div class="card">
+      <p class="stat-label">Total Classes</p>
+      <p class="stat-number">05</p>
+    </div>
+
+    <div class="card">
+      <p class="stat-label">Total Records</p>
+      <p class="stat-number">00</p>
+    </div>
+
+    <div class="card">
+      <p class="stat-label">Merit Added</p>
+      <p class="stat-number gold">00</p>
+    </div>
+
+    <div class="card">
+      <p class="stat-label">Merit Deducted</p>
+      <p class="stat-number">00</p>
+    </div>
+  </section>
+
+  <h3 class="section-title">Class Management</h3>
+
+  <section class="classes">
+    <div class="card class-card">
+      <h3>2 IBNU AQIL</h3>
+      <p>Total Merit: 0</p>
+    </div>
+
+    <div class="card class-card">
+      <h3>2 IBNU BATUTAH</h3>
+      <p>Total Merit: 0</p>
+    </div>
+
+    <div class="card class-card">
+      <h3>2 IBNU KHALDUN</h3>
+      <p>Total Merit: 0</p>
+    </div>
+
+    <div class="card class-card">
+      <h3>2 IBNU RUSYD</h3>
+      <p>Total Merit: 0</p>
+    </div>
+
+    <div class="card class-card">
+      <h3>2 IBNU SINA</h3>
+      <p>Total Merit: 0</p>
+    </div>
+  </section>
+
+  <h3 class="section-title">System Navigation</h3>
+
+  <section class="menu">
+    <div class="card menu-item">
+      Merit Entry
+      <span>Record merit additions and deductions</span>
+    </div>
+
+    <div class="card menu-item">
+      History
+      <span>View previous records</span>
+    </div>
+
+    <div class="card menu-item">
+      Reports
+      <span>View class merit reports</span>
+    </div>
+
+    <div class="card menu-item">
+      Committee
+      <span>Committee management</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  BATCH 13 MERIT SYSTEM · 2027
+  <br><br>
+  Prototype Version 1.0
+</footer>
+
+</body>
+</html>
