@@ -228,7 +228,8 @@ footer {
   <h3 class="section-title">System Navigation</h3>
 
   <section class="menu">
-    <div class="card menu-item">
+    <div class="card menu-item"
+      onclick="openMeritEntry()">
       Merit Entry
       <span>Record merit additions and deductions</span>
     </div>
@@ -248,7 +249,61 @@ footer {
       <span>Committee management</span>
     </div>
   </section>
+<section id="meritEntryPage" style="display:none; padding:20px;">
+  <h2>MERIT ENTRY</h2>
+  <p>Record merit additions and deductions</p>
 
+  <label>Observer</label>
+  <select id="observer">
+    <option value="">Select observer</option>
+  </select>
+
+  <br><br>
+
+  <label>Class</label>
+  <select id="meritClass">
+    <option value="">Select class</option>
+    <option>2 IBNU AQIL</option>
+    <option>2 IBNU BATUTAH</option>
+    <option>2 IBNU KHALDUN</option>
+    <option>2 IBNU RUSYD</option>
+    <option>2 IBNU SINA</option>
+  </select>
+
+  <br><br>
+
+  <label>Reason</label>
+  <select id="meritReason">
+    <option value="">Select reason</option>
+    <option>Cooperation</option>
+    <option>Cleanliness</option>
+    <option>Respect</option>
+    <option>Helping others</option>
+    <option>Following rules</option>
+    <option>Disrupting others</option>
+    <option>Impolite language</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <br><br>
+
+  <label>Merit Type</label>
+  <select id="meritType">
+    <option value="add">Add (+)</option>
+    <option value="deduct">Deduct (-)</option>
+  </select>
+
+  <br><br>
+
+  <label>Points</label>
+  <input id="meritPoints" type="number" min="1" max="5" value="1">
+
+  <br><br>
+
+  <button type="button" onclick="alert('Save function coming soon!')">
+    SAVE RECORD
+  </button>
+</section>
 </main>
 
 <footer>
@@ -415,6 +470,13 @@ const auth = getAuth();
 window.logoutUser = async function() {
   await signOut(auth);
   location.reload();
+};
+</script>
+  <script>
+window.openMeritEntry = function() {
+  const page = document.getElementById("meritEntryPage");
+  page.style.display = "block";
+  page.scrollIntoView({ behavior: "smooth" });
 };
 </script>
 </body>
