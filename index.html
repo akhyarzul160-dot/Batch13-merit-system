@@ -310,8 +310,10 @@ footer {
 
   <br><br>
 
-  <button type="button" onclick="alert('Save function coming soon!')">
+  <button type="button" onclick="saveMeritRecord()">
     SAVE RECORD
+  </button>
+  <p id="meritStatus" style="margin-top: 10px; font-weight: bold;"></p>
   </button>
 </section>
 </main>
@@ -398,7 +400,10 @@ footer {
     import {
   getFirestore,
   doc,
-  getDoc
+  getDoc,
+  collection,
+  addDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -467,12 +472,10 @@ const firebaseConfig = {
     const observer = document.getElementById("observer").value;
     const meritClass = document.getElementById("meritClass").value;
     const reason = document.getElementById("meritReason").value;
-    // Pastikan ID input poin/markah sama dengan yang ada dalam HTML awak (contoh: meritPoints)
-    const pointsInput = document.getElementById("meritPoints"); 
-    const points = pointsInput ? Number(pointsInput.value) : 0;
+    const type = document.getElementById("meritType").value;
+    const points = Number(document.getElementById("meritPoints").value);
     const statusText = document.getElementById("meritStatus");
 
-    // Semak jika ada ruang yang belum diisi
     if (!observer || !meritClass || !reason || !points) {
       statusText.style.color = "red";
       statusText.innerText = "Sila lengkapkan semua maklumat terlebih dahulu!";
@@ -483,11 +486,11 @@ const firebaseConfig = {
     statusText.innerText = "Menyimpan rekod...";
 
     try {
-      // Simpan ke koleksi 'meritRecords' dalam Firestore
       await addDoc(collection(db, "meritRecords"), {
         observer: observer,
         class: meritClass,
         reason: reason,
+        type: type,
         points: points,
         timestamp: serverTimestamp()
       });
@@ -499,7 +502,8 @@ const firebaseConfig = {
       document.getElementById("observer").value = "";
       document.getElementById("meritClass").value = "";
       document.getElementById("meritReason").value = "";
-      if (pointsInput) pointsInput.value = "";
+      document.getElementById("meritType").value = "add";
+      document.getElementById("meritPoints").value = "1";
       
     } catch (error) {
       console.error("Ralat menyimpan rekod:", error);
