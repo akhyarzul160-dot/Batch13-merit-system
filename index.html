@@ -30,6 +30,9 @@ header {
   color: white;
   padding: 25px 7%;
   border-bottom: 4px solid var(--gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header h1 {
@@ -39,9 +42,20 @@ header h1 {
 }
 
 header p {
-  margin-top: 7px;
+  margin-top: 5px;
   font-size: 13px;
   color: #d9deea;
+}
+
+.logout-btn {
+  background: #dc2626;
+  color: white;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
 }
 
 main {
@@ -161,8 +175,11 @@ footer {
 <body>
 
 <header>
-  <h1>BATCH 13</h1>
-  <p>MERIT MANAGEMENT SYSTEM · 2027</p>
+  <div>
+    <h1>BATCH 13</h1>
+    <p>MERIT MANAGEMENT SYSTEM · 2027</p>
+  </div>
+  <button class="logout-btn" onclick="handleLogout()">LOG OUT</button>
 </header>
 
 <main>
@@ -417,7 +434,7 @@ footer {
     <input id="loginEmail" type="email" placeholder="Email address">
     <input id="loginPassword" type="password" placeholder="Password">
     <button id="loginButton">LOGIN</button>
-    <p id="loginError"></p>
+    <p id="loginError" style="margin-top: 10px; font-size: 13px;"></p>
   </div>
 </div>
 
@@ -461,12 +478,21 @@ footer {
   document.getElementById("loginButton").addEventListener("click", async () => {
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
+    errorText.style.color = "#d9534f";
     errorText.textContent = "";
 
+    if (!email || !password) {
+      errorText.textContent = "Sila masukkan email dan password!";
+      return;
+    }
+
     try {
+      errorText.style.color = "#0275d8";
+      errorText.textContent = "Sedang log masuk...";
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      errorText.textContent = "Login gagal. Semak email dan password.";
+      errorText.style.color = "#d9534f";
+      errorText.textContent = "Login gagal: " + error.message;
     }
   });
 
@@ -484,14 +510,28 @@ footer {
       } else {
         await signOut(auth);
         loginScreen.style.display = "flex";
+        errorText.style.color = "#d9534f";
         errorText.textContent = "Akaun ini belum diberi kebenaran.";
       }
     } catch (error) {
       await signOut(auth);
       loginScreen.style.display = "flex";
-      errorText.textContent = "Tidak dapat mengesahkan akses. Cuba lagi.";
+      errorText.style.color = "#d9534f";
+      errorText.textContent = "Tidak dapat mengesahkan akses.";
     }
   });
+
+  window.handleLogout = async function() {
+    try {
+      await signOut(auth);
+      document.getElementById("loginEmail").value = "";
+      document.getElementById("loginPassword").value = "";
+      errorText.textContent = "";
+      loginScreen.style.display = "flex";
+    } catch (error) {
+      alert("Gagal log keluar: " + error.message);
+    }
+  };
 
   function hideAllPages() {
     document.getElementById("meritEntryPage").style.display = "none";
@@ -547,7 +587,7 @@ footer {
               <span style="font-weight:bold; font-size:15px; color:${badgeColor};">${sign}${data.points} pts</span>
             </div>
             <p style="font-size:13px; color:#374151; margin-top:5px;"><strong>Sebab:</strong> ${data.reason}</p>
-            <p style="font-size:12px; color:#68738a; margin-top:4px;">Oleh: ${data.observer} ·${dateStr}</p>
+            <p style="font-size:12px; color:#68738a; margin-top:4px;">Oleh: ${data.observer} · ${dateStr}</p>
           </div>
         `;
       });
@@ -593,4 +633,111 @@ footer {
       let html = "";
       for (const [className, total] of Object.entries(classTotals)) {
         html += `
-          <div style="padding:15px; border:1px solid #e7e9ef; border-left:4px solid #D5AE59; border-radius:10px; background:#f9fafb; display:flex
+          <div style="padding:15px; border:1px solid #e7e9ef; border-left:4px solid #D5AE59; border-radius:10px; background:#f9fafb; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:15px; color:#101D38;">${className}</strong>
+            <span style="font-weight:bold; font-size:16px; color:#101D38;">Total Merit: ${total}</span>
+          </div>
+        `;
+      }
+      reportsList.innerHTML = html;
+    } catch (error) {
+      reportsList.innerHTML = "<p style='color:red; font-size:13px;'>Gagal menjana laporan.</p>";
+    }
+  };
+
+  window.openCommittee = function() {
+    hideAllPages();
+    const page = document.getElementById("committeePage");
+    page.style.display = "block";
+    page.scrollIntoView({ behavior: "smooth" });
+  };
+
+  async function updateDashboardStats() {
+    try {
+      const q = query(collection(db, "meritRecords"));
+      const querySnapshot = await getDocs(q);
+
+      let totalRecords = 0;
+      let totalAdded = 0;
+      let totalDeducted = 0;
+
+      const classTotals = {
+        "2 IBNU AQIL": 0,
+        "2 IBNU BATUTAH": 0,
+        "2 IBNU KHALDUN": 0,
+        "2 IBNU RUSYD": 0,
+        "2 IBNU SINA": 0
+      };
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        totalRecords++;
+        const pts = Number(data.points) || 0;
+        if (data.type === "add") {
+          totalAdded += pts;
+          if (classTotals[data.class] !== undefined) classTotals[data.class] += pts;
+        } else {
+          totalDeducted += pts;
+          if (classTotals[data.class] !== undefined) classTotals[data.class] -= pts;
+        }
+      });
+
+      document.querySelectorAll(".stat-number")[1].innerText = String(totalRecords).padStart(2, '0');
+      document.querySelectorAll(".stat-number")[2].innerText = String(totalAdded).padStart(2, '0');
+      document.querySelectorAll(".stat-number")[3].innerText = String(totalDeducted).padStart(2, '0');
+
+      document.getElementById("merit-2-ibnu-aqil").innerText = classTotals["2 IBNU AQIL"];
+      document.getElementById("merit-2-ibnu-batutah").innerText = classTotals["2 IBNU BATUTAH"];
+      document.getElementById("merit-2-ibnu-khaldun").innerText = classTotals["2 IBNU KHALDUN"];
+      document.getElementById("merit-2-ibnu-rusyd").innerText = classTotals["2 IBNU RUSYD"];
+      document.getElementById("merit-2-ibnu-sina").innerText = classTotals["2 IBNU SINA"];
+    } catch (error) {
+      console.error("Ralat mengemas kini dashboard:", error);
+    }
+  }
+
+  window.saveMeritRecord = async function() {
+    const observer = document.getElementById("observer").value;
+    const meritClass = document.getElementById("meritClass").value;
+    const reason = document.getElementById("meritReason").value;
+    const type = document.getElementById("meritType").value;
+    const points = Number(document.getElementById("meritPoints").value);
+    const statusText = document.getElementById("meritStatus");
+
+    if (!observer || !meritClass || !reason || !points) {
+      statusText.style.color = "red";
+      statusText.innerText = "Sila lengkapkan semua maklumat terlebih dahulu!";
+      return;
+    }
+
+    statusText.style.color = "blue";
+    statusText.innerText = "Menyimpan rekod...";
+
+    try {
+      await addDoc(collection(db, "meritRecords"), {
+        observer: observer,
+        class: meritClass,
+        reason: reason,
+        type: type,
+        points: points,
+        timestamp: serverTimestamp()
+      });
+
+      statusText.style.color = "green";
+      statusText.innerText = "Rekod merit berjaya disimpan!";
+      await updateDashboardStats();
+      
+      document.getElementById("observer").value = "";
+      document.getElementById("meritClass").value = "";
+      document.getElementById("meritReason").value = "";
+      document.getElementById("meritType").value = "add";
+      document.getElementById("meritPoints").value = "1";
+    } catch (error) {
+      statusText.style.color = "red";
+      statusText.innerText = "Gagal menyimpan: " + error.message;
+    }
+  };
+</script>
+
+</body>
+</html>
